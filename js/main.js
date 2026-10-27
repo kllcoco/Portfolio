@@ -6,14 +6,8 @@ const esc = (s = "") =>
 
 const pad = (n) => String(n).padStart(2, "0");
 
-// 没有封面时，按序号生成一张"渐变光斑"封面
-function art(i) {
-  const h = (i * 67 + 18) % 360;
-  return `radial-gradient(60% 80% at 20% 20%, hsl(${h} 90% 62%) 0%, transparent 60%),
-    radial-gradient(50% 70% at 85% 30%, hsl(${(h + 50) % 360} 85% 55%) 0%, transparent 60%),
-    radial-gradient(70% 90% at 60% 100%, hsl(${(h + 300) % 360} 80% 45%) 0%, transparent 65%),
-    hsl(${h} 30% 12%)`;
-}
+// 没有封面时，按序号轮流用一种柔和的纯色（颜色在 style.css 的 --tone-1 ~ --tone-5）
+const art = (i) => `var(--tone-${(i % 5) + 1})`;
 
 function cover(p, i) {
   return p.cover
@@ -44,9 +38,6 @@ $("#stats").innerHTML = [
   [SITE.since, "年起步"],
 ].map(([n, t]) => `<div><dt>${esc(n)}</dt><dd>${t}</dd></div>`).join("");
 
-const words = SITE.skills.map((s) => `<span>${esc(s)}</span><b>✦</b>`).join("");
-$("#marquee").innerHTML = words.repeat(4);
-
 $("#contact-mail").href = `mailto:${SITE.email}`;
 $("#contact-mail").innerHTML = `${esc(SITE.email)} <span class="arrow">↗</span>`;
 $("#contact-links").innerHTML = SITE.contacts
@@ -56,6 +47,9 @@ $("#contact-links").innerHTML = SITE.contacts
 $("#timeline").innerHTML = JOURNEY.map(
   (j) => `<li class="reveal"><time class="mono">${esc(j.date)}</time><div><h3>${esc(j.title)}</h3><p>${esc(j.text || "")}</p></div></li>`
 ).join("");
+
+const words = SITE.skills.map((s) => `<span>${esc(s)}</span><b>·</b>`).join("");
+$("#marquee").innerHTML = words.repeat(4);
 
 // ---- 作品卡片 + 筛选 ----
 const tags = ["全部", ...new Set(PROJECTS.flatMap((p) => p.tags || []))];
@@ -81,7 +75,7 @@ function renderGrid() {
           <h3>${esc(p.title)}</h3>
           <p>${esc(p.summary || "")}</p>
         </div>
-        <span class="card-arrow">↗</span>
+        <span class="card-arrow">→</span>
       </article>`
     )
     .join("");
@@ -94,15 +88,6 @@ $("#filters").addEventListener("click", (e) => {
   current = b.dataset.tag;
   renderFilters();
   renderGrid();
-});
-
-// 鼠标在卡片上移动时，跟随一个柔光
-$("#grid").addEventListener("pointermove", (e) => {
-  const c = e.target.closest(".card");
-  if (!c) return;
-  const r = c.getBoundingClientRect();
-  c.style.setProperty("--mx", `${e.clientX - r.left}px`);
-  c.style.setProperty("--my", `${e.clientY - r.top}px`);
 });
 
 // ---- 详情抽屉 ----
@@ -138,10 +123,10 @@ drawer.addEventListener("click", (e) => { if (e.target === drawer) drawer.close(
 const root = document.documentElement;
 try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch {}
 $("#theme-toggle").addEventListener("click", () => {
-  const light = root.dataset.theme
-    ? root.dataset.theme === "light"
-    : matchMedia("(prefers-color-scheme: light)").matches;
-  root.dataset.theme = light ? "dark" : "light";
+  const dark = root.dataset.theme
+    ? root.dataset.theme === "dark"
+    : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
   try { localStorage.setItem("theme", root.dataset.theme); } catch {}
 });
 
