@@ -30,6 +30,14 @@
         <span class="status"><i></i><span id="status"></span></span>
       </div>
       <h1 class="hero-title reveal" id="hero-title"></h1>
+      <!-- 慢慢旋转的圆形文字徽章 -->
+      <a class="badge" href="#works" aria-label="看看作品">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <defs><path id="circle" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
+          <text><textPath href="#circle" id="badge-text" textLength="286" lengthAdjust="spacing"></textPath></text>
+        </svg>
+        <span>↓</span>
+      </a>
       <div class="hero-bottom reveal">
         <p class="lead" id="hero-lead"></p>
         <div class="actions">
@@ -46,7 +54,7 @@
     <!-- ③ 作品 -->
     <section id="works" class="section">
       <header class="section-head reveal">
-        <span class="mono label">01 / 作品</span>
+        <span class="mono label num">01 / 作品</span>
         <h2>做过的东西</h2>
         <div class="filters" id="filters"></div>
       </header>
@@ -57,7 +65,7 @@
     <!-- ④ 成长历程 -->
     <section id="journey" class="section">
       <header class="section-head reveal">
-        <span class="mono label">02 / 历程</span>
+        <span class="mono label num">02 / 历程</span>
         <h2>一步一个脚印</h2>
       </header>
       <ol class="timeline" id="timeline"></ol>
@@ -66,7 +74,7 @@
     <!-- ⑤ 关于 -->
     <section id="about" class="section">
       <header class="section-head reveal">
-        <span class="mono label">03 / 关于</span>
+        <span class="mono label num">03 / 关于</span>
         <h2>关于我</h2>
       </header>
       <div class="about">
@@ -80,8 +88,8 @@
 
     <!-- ⑥ 联系 -->
     <section id="contact" class="section contact">
-      <span class="mono label reveal">04 / 联系</span>
-      <h2 class="contact-title reveal">有想法？<br><em>一起聊聊。</em></h2>
+      <span class="mono label num reveal">04 / 联系</span>
+      <h2 class="contact-title reveal"><span class="star" aria-hidden="true">✻</span>有想法？<br><em>一起聊聊。</em></h2>
       <a class="contact-mail reveal" id="contact-mail"></a>
       <div class="contact-links reveal" id="contact-links"></div>
     </section>

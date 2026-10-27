@@ -6,13 +6,13 @@ const esc = (s = "") =>
 
 const pad = (n) => String(n).padStart(2, "0");
 
-// 没有封面时，按序号轮流用一种柔和的纯色（颜色在 style.css 的 --tone-1 ~ --tone-5）
-const art = (i) => `var(--tone-${(i % 5) + 1})`;
+// 没有封面时，按序号轮流用一种柔和的底色 + 几何花纹（样式在 style.css 的 .art-1 ~ .art-5）
+const art = (i) => `art-${(i % 5) + 1}`;
 
 function cover(p, i) {
   return p.cover
     ? `<div class="cover"><img src="${esc(p.cover)}" alt="${esc(p.title)}" loading="lazy"></div>`
-    : `<div class="cover art" style="background:${art(i)}"><span>${pad(i + 1)}</span></div>`;
+    : `<div class="cover art ${art(i)}"><span>${pad(i + 1)}</span></div>`;
 }
 
 const tagList = (p) => (p.tags || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("");
@@ -29,6 +29,7 @@ $("#hero-title").innerHTML = esc(SITE.title)
   .replace(/\*(.+?)\*/g, "<em>$1</em>")
   .replace(/\n/g, "<br>");
 $("#hero-lead").textContent = SITE.lead;
+$("#badge-text").textContent = `PORTFOLIO · 作品集 · ${year} · `.repeat(2);
 $("#about-text").textContent = SITE.about;
 $("#skills").innerHTML = SITE.skills.map((s) => `<li>${esc(s)}</li>`).join("");
 
@@ -48,7 +49,7 @@ $("#timeline").innerHTML = JOURNEY.map(
   (j) => `<li class="reveal"><time class="mono">${esc(j.date)}</time><div><h3>${esc(j.title)}</h3><p>${esc(j.text || "")}</p></div></li>`
 ).join("");
 
-const words = SITE.skills.map((s) => `<span>${esc(s)}</span><b>·</b>`).join("");
+const words = SITE.skills.map((s) => `<span>${esc(s)}</span><b>✻</b>`).join("");
 $("#marquee").innerHTML = words.repeat(4);
 
 // ---- 作品卡片 + 筛选 ----
