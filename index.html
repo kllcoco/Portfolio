@@ -24,11 +24,17 @@
 
   <main id="top">
     <!-- ① 首屏 -->
-    <section class="hero">
+    <section class="hero" id="hero">
+      <!-- 漂浮的小图形（会跟着鼠标轻轻动） -->
+      <div class="shapes" aria-hidden="true">
+        <i class="shape s1"></i><i class="shape s2"></i><i class="shape s3"></i>
+        <i class="shape s4"></i><i class="shape s5"></i><i class="shape s6"></i>
+      </div>
       <div class="hero-top mono reveal">
         <span>PORTFOLIO — <span id="year-top"></span></span>
         <span class="status"><i></i><span id="status"></span></span>
       </div>
+      <span class="sticker hello reveal" aria-hidden="true">Hi! 👋</span>
       <h1 class="hero-title reveal" id="hero-title"></h1>
       <!-- 慢慢旋转的圆形文字徽章 -->
       <a class="badge" href="#works" aria-label="看看作品">
@@ -48,8 +54,11 @@
       <dl class="stats reveal" id="stats"></dl>
     </section>
 
-    <!-- ② 技能滚动字幕 -->
-    <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
+    <!-- ② 滚动字幕：一条技能 + 一条斜着的胶带 -->
+    <div class="tapes" aria-hidden="true">
+      <div class="marquee"><div class="marquee-track" id="marquee"></div></div>
+      <div class="marquee tape"><div class="marquee-track reverse" id="tape"></div></div>
+    </div>
 
     <!-- ③ 作品 -->
     <section id="works" class="section">
@@ -88,6 +97,7 @@
 
     <!-- ⑥ 联系 -->
     <section id="contact" class="section contact">
+      <div class="shapes" aria-hidden="true"><i class="shape s2"></i><i class="shape s4"></i><i class="shape s6"></i></div>
       <span class="mono label num reveal">04 / 联系</span>
       <h2 class="contact-title reveal"><span class="star" aria-hidden="true">✻</span>有想法？<br><em>一起聊聊。</em></h2>
       <a class="contact-mail reveal" id="contact-mail"></a>
@@ -95,6 +105,7 @@
     </section>
   </main>
 
+  <div class="footer-big" aria-hidden="true"><span id="footer-big"></span></div>
   <footer class="footer mono">
     <span>© <span id="year"></span> <span id="footer-name"></span></span>
     <a href="#top">回到顶部 ↑</a>

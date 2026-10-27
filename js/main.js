@@ -51,6 +51,9 @@ $("#timeline").innerHTML = JOURNEY.map(
 
 const words = SITE.skills.map((s) => `<span>${esc(s)}</span><b>✻</b>`).join("");
 $("#marquee").innerHTML = words.repeat(4);
+const slogans = (SITE.slogans || []).map((s) => `<span>${esc(s)}</span><b>✻</b>`).join("");
+$("#tape").innerHTML = slogans.repeat(4);
+$("#footer-big").textContent = `${SITE.name} · `.repeat(6);
 
 // ---- 作品卡片 + 筛选 ----
 const tags = ["全部", ...new Set(PROJECTS.flatMap((p) => p.tags || []))];
@@ -76,6 +79,7 @@ function renderGrid() {
           <h3>${esc(p.title)}</h3>
           <p>${esc(p.summary || "")}</p>
         </div>
+        ${p.featured ? '<span class="sticker pick">★ 精选</span>' : ""}
         <span class="card-arrow">→</span>
       </article>`
     )
@@ -131,10 +135,37 @@ $("#theme-toggle").addEventListener("click", () => {
   try { localStorage.setItem("theme", root.dataset.theme); } catch {}
 });
 
+// ---- 漂浮图形跟着鼠标轻轻移动 ----
+document.querySelectorAll(".hero, .contact").forEach((sec) => {
+  sec.addEventListener("pointermove", (e) => {
+    const r = sec.getBoundingClientRect();
+    sec.style.setProperty("--px", ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
+    sec.style.setProperty("--py", ((e.clientY - r.top) / r.height - 0.5).toFixed(3));
+  });
+});
+
+// ---- 数字从 0 滚动到目标值 ----
+function countUp(el) {
+  const end = parseInt(el.textContent, 10);
+  if (!end) return;
+  const start = end > 1000 ? end - 30 : 0, t0 = performance.now();
+  const tick = (t) => {
+    const k = Math.min(1, (t - t0) / 1200);
+    el.textContent = Math.round(start + (end - start) * (1 - (1 - k) ** 3));
+    if (k < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
 // ---- 滚动到哪里，哪里就淡入 ----
 renderFilters();
 renderGrid();
 const io = new IntersectionObserver((entries) => {
-  for (const en of entries) if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+  for (const en of entries) {
+    if (!en.isIntersecting) continue;
+    en.target.classList.add("in");
+    if (en.target.id === "stats") en.target.querySelectorAll("dt").forEach(countUp);
+    io.unobserve(en.target);
+  }
 }, { threshold: 0.12 });
 document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
