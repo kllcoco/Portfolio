@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>作品集</title>
+  <meta name="description" content="个人作品集：记录我做过的项目与学习成长">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="glow" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="logo" href="#top"><span class="logo-dot"></span><span id="logo"></span></a>
+    <nav>
+      <a href="#works">作品</a>
+      <a href="#journey">历程</a>
+      <a href="#about">关于</a>
+      <a href="#contact">联系</a>
+      <button id="theme-toggle" aria-label="切换深浅色"><span></span></button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- ① 首屏 -->
+    <section class="hero">
+      <div class="hero-top mono reveal">
+        <span>PORTFOLIO — <span id="year-top"></span></span>
+        <span class="status"><i></i><span id="status"></span></span>
+      </div>
+      <h1 class="hero-title reveal" id="hero-title"></h1>
+      <div class="hero-bottom reveal">
+        <p class="lead" id="hero-lead"></p>
+        <div class="actions">
+          <a class="btn primary" href="#works">看看作品 <span class="arrow">→</span></a>
+          <a class="btn" href="#contact">联系我</a>
+        </div>
+      </div>
+      <dl class="stats reveal" id="stats"></dl>
+    </section>
+
+    <!-- ② 技能跑马灯 -->
+    <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
+
+    <!-- ③ 作品 -->
+    <section id="works" class="section">
+      <header class="section-head reveal">
+        <span class="mono label">01 / 作品</span>
+        <h2>做过的东西</h2>
+        <div class="filters" id="filters"></div>
+      </header>
+      <div class="bento" id="grid"></div>
+      <p class="empty" id="empty" hidden>这个分类还没有作品，继续加油 💪</p>
+    </section>
+
+    <!-- ④ 成长历程 -->
+    <section id="journey" class="section">
+      <header class="section-head reveal">
+        <span class="mono label">02 / 历程</span>
+        <h2>一步一个脚印</h2>
+      </header>
+      <ol class="timeline" id="timeline"></ol>
+    </section>
+
+    <!-- ⑤ 关于 -->
+    <section id="about" class="section">
+      <header class="section-head reveal">
+        <span class="mono label">03 / 关于</span>
+        <h2>关于我</h2>
+      </header>
+      <div class="about">
+        <p class="about-text reveal" id="about-text"></p>
+        <div class="reveal">
+          <p class="mono label">技能 / 工具</p>
+          <ul class="skills" id="skills"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑥ 联系 -->
+    <section id="contact" class="section contact">
+      <span class="mono label reveal">04 / 联系</span>
+      <h2 class="contact-title reveal">有想法？<br><em>一起聊聊。</em></h2>
+      <a class="contact-mail reveal" id="contact-mail"></a>
+      <div class="contact-links reveal" id="contact-links"></div>
+    </section>
+  </main>
+
+  <footer class="footer mono">
+    <span>© <span id="year"></span> <span id="footer-name"></span></span>
+    <a href="#top">回到顶部 ↑</a>
+  </footer>
+
+  <!-- 作品详情抽屉 -->
+  <dialog id="drawer">
+    <button class="close" id="drawer-close" aria-label="关闭">×</button>
+    <div id="drawer-body"></div>
+  </dialog>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
